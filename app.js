@@ -30,17 +30,38 @@ var model = [
         }
     ]
 ];
-// Model End
+
 
 
 // ************ View ****************
 
+var catView = {
+    init: function () {
+        this.catElem = document.getElementById('cat');
+        this.catNameElem = document.getElementById('cat-name');
+        this.catImgElem = document.getElementById('cat-img');
+        this.countElem = document.getElementById('cat-count');
+
+        this.catImgElem.addEventListener('click', function (){
+            octopus.incrementCounter();
+        });
+
+        this.render();
+
+    },
+
+    render: function(){
+        var currentCat = octopus.getCurrentCat();
+        this.countElem.textContent = currentCat.clickCount;
+        this.catNameElem.textContent = currentCat.name;
+        this.catImgElem.src = currentCat.pic;
+    }
+}
 
 
 
 
-
-// Octopus Start
+// *********** Octopus Start **************
 
 function viewCat(id){
 
@@ -51,5 +72,3 @@ $(document).ready(function () {
 }
 );
 
-
-//Octopus End
