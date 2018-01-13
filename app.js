@@ -58,6 +58,38 @@ var catView = {
     }
 }
 
+var catListView = {
+    init: function() {
+        this.catListElem = document.getElementById('cat-list');
+
+        this.render();
+    }
+
+    render: function(){
+        var cat, elem, i;
+
+        var cats = octopus.getCats();
+
+        this.catListElem = '';
+
+        for (i=0; i < cats.length; i++) {
+            cat = cats[i];
+
+            elem = document.createElement('li');
+            elem.textContent = cat.name;
+
+            elem.addEventListener('click', (function(catCopy) {
+                return function() {
+                    octopus.setCurrentCat(catCopy);
+                    catView.render();
+                };
+            })(cat));
+
+            this.catListElem.appendChild(elem);
+        }
+    }
+}
+
 
 
 
