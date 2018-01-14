@@ -26,9 +26,39 @@ var model = {
         {
             name: "Cat5",
             pic: "https://www.aspca.org/sites/default/files/cat-care_cat-nutrition-tips_overweight_body4_left.jpg",
-            clicks: 0
+            clickCount: 0
         }
     ]
+};
+
+
+// *********** Octopus Start **************
+
+var octopus = {
+
+    init: function () {
+        model.currentCat = model.cats[0];
+
+        catListView.init();
+        catView.init();
+    },
+
+    getCurrentCat: function () {
+        return model.currentCat;
+    },
+
+    getCats: function () {
+        return model.cats;
+    },
+
+    setCurrentCat: function(cat) {
+        model.currentCat = cat;
+    },
+
+    incrementCounter: function () {
+        model.currentCat.clickCount++;
+        catView.render();
+    }
 };
 
 
@@ -36,7 +66,7 @@ var model = {
 // ************ View ****************
 
 var catView = {
-    init: function () {
+    init: function() {
         this.catElem = document.getElementById('cat');
         this.catNameElem = document.getElementById('cat-name');
         this.catImgElem = document.getElementById('cat-img');
@@ -56,21 +86,21 @@ var catView = {
         this.catNameElem.textContent = currentCat.name;
         this.catImgElem.src = currentCat.pic;
     }
-}
+};
 
 var catListView = {
     init: function() {
         this.catListElem = document.getElementById('cat-list');
 
         this.render();
-    }
+    },
 
     render: function(){
         var cat, elem, i;
 
         var cats = octopus.getCats();
 
-        this.catListElem = '';
+        this.catListElem.innerHTML = '';
 
         for (i=0; i < cats.length; i++) {
             cat = cats[i];
@@ -89,37 +119,5 @@ var catListView = {
         }
     }
 }
-
-
-
-
-// *********** Octopus Start **************
-
-var octopus = {
-    
-    init: function(){
-        model.currentCat = model.cats[0];
-
-        catListView.init();
-        catView.init();
-    },
-
-    getCurrentCat: function(){
-        return model.currentCat;
-    },
-
-    getCats: function(){
-        return model.cats;
-    },
-
-    setCurrentCat: function(cat){
-        model.currentCat = cat;
-    },
-
-    incrementCounter: function(){
-        model.currentCat.clickCount++;
-        catView.render;
-    }
-};
 
 octopus.init();
