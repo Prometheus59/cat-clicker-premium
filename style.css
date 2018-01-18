@@ -1,0 +1,7 @@
+#cat-list {
+    list-style-type: none;
+    font-size: 120%;
+    margin-bottom: 10px;
+    align-content: center;
+    justify-content: center;
+}

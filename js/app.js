@@ -118,6 +118,22 @@ var catListView = {
             this.catListElem.appendChild(elem);
         }
     }
-}
+};
+
+var adminView = {
+
+    init: function(){
+        this.adminPrivileges = document.getElementById("adminBtn")
+
+        this.adminPrivileges.addEventListener("click", function(){
+            this.view()
+        });
+    },
+    
+    show: function(){
+        
+    }
+
+};
 
 octopus.init();
