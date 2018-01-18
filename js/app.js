@@ -41,6 +41,7 @@ var octopus = {
 
         catListView.init();
         catView.init();
+        adminView.init();
     },
 
     getCurrentCat: function () {
@@ -123,15 +124,20 @@ var catListView = {
 var adminView = {
 
     init: function(){
-        this.adminPrivileges = document.getElementById("adminBtn")
+        this.adminPrivileges = document.getElementById("adminBtn");
 
         this.adminPrivileges.addEventListener("click", function(){
-            this.view()
+            adminView.view();
         });
     },
     
-    show: function(){
-        
+    view: function(){
+        var elem = document.getElementById("adminForm");
+        elem.style.display = "block";
+    },
+
+    hide: function(){
+
     }
 
 };
