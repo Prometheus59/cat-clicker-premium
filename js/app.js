@@ -35,27 +35,27 @@ var model = {
 // *********** Octopus Start **************
 
 var octopus = {
-
+    
     init: function () {
         model.currentCat = model.cats[0];
-
+        
         catListView.init();
         catView.init();
         adminView.init();
     },
-
+    
     getCurrentCat: function () {
         return model.currentCat;
     },
-
+    
     getCats: function () {
         return model.cats;
     },
-
+    
     setCurrentCat: function(cat) {
         model.currentCat = cat;
     },
-
+    
     incrementCounter: function () {
         model.currentCat.clickCount++;
         catView.render();
@@ -72,15 +72,15 @@ var catView = {
         this.catNameElem = document.getElementById('cat-name');
         this.catImgElem = document.getElementById('cat-img');
         this.countElem = document.getElementById('cat-count');
-
+        
         this.catImgElem.addEventListener('click', function (){
             octopus.incrementCounter();
         });
-
+        
         this.render();
-
+        
     },
-
+    
     render: function(){
         var currentCat = octopus.getCurrentCat();
         this.countElem.textContent = currentCat.clickCount;
@@ -92,53 +92,59 @@ var catView = {
 var catListView = {
     init: function() {
         this.catListElem = document.getElementById('cat-list');
-
+        
         this.render();
     },
-
+    
     render: function(){
         var cat, elem, i;
-
+        
         var cats = octopus.getCats();
-
+        
         this.catListElem.innerHTML = '';
-
+        
         for (i=0; i < cats.length; i++) {
             cat = cats[i];
-
+            
             elem = document.createElement('li');
             elem.textContent = cat.name;
-
+            
             elem.addEventListener('click', (function(catCopy) {
                 return function() {
                     octopus.setCurrentCat(catCopy);
                     catView.render();
                 };
             })(cat));
-
+            
             this.catListElem.appendChild(elem);
         }
     }
 };
 
 var adminView = {
-
+    
     init: function(){
         this.adminPrivileges = document.getElementById("adminBtn");
-
+        
         this.adminPrivileges.addEventListener("click", function(){
+            var elem = document.getElementById("adminForm");
+            if (elem.style.display == "none") {
             adminView.view();
-        });
-    },
-    
-    view: function(){
-        var elem = document.getElementById("adminForm");
-        elem.style.display = "block";
-    },
+        } else {
+            adminView.hide();
+        }
+    });
+},
 
-    hide: function(){
+view: function(){
+    var elem = document.getElementById("adminForm");
+    elem.style.display = "block";
+},
 
-    }
+hide: function(){
+    var elem = document.getElementById("adminForm");
+    elem.style.display = "none";
+}
 
 };
 
