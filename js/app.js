@@ -33,7 +33,7 @@ var model = {
 
 
 // *********** Octopus Start **************
-
+// Communication between the Model and the View (seperation of concerns)
 var octopus = {
     
     init: function () {
@@ -58,6 +58,23 @@ var octopus = {
     
     incrementCounter: function () {
         model.currentCat.clickCount++;
+        catView.render();
+    },
+
+    newName: function(name2){
+        model.currentCat.name = name2;
+        catView.render();
+        catListView.render();
+    },
+
+    newUrl: function(url2){
+        model.currentCat.pic = url2;
+        catView.render();
+        catListView.render();
+    },
+
+    diffClicks: function(num){
+        model.currentCat.clickCount = num;
         catView.render();
     }
 };
@@ -88,6 +105,7 @@ var catView = {
         this.catImgElem.src = currentCat.pic;
     }
 };
+
 
 var catListView = {
     init: function() {
@@ -121,31 +139,63 @@ var catListView = {
     }
 };
 
+// Allows user to change cat name, url, and number of clicks
 var adminView = {
     
     init: function(){
         this.adminPrivileges = document.getElementById("adminBtn");
-        
+
         this.adminPrivileges.addEventListener("click", function(){
-            var elem = document.getElementById("adminForm");
+            var elem = document.getElementById("hide");
             if (elem.style.display == "none") {
-            adminView.view();
-        } else {
-            adminView.hide();
-        }
-    });
-},
+                adminView.view();
+            } else {
+                adminView.hide();
+            }
+        });
 
-view: function(){
-    var elem = document.getElementById("adminForm");
-    elem.style.display = "block";
-},
+        this.submission = document.getElementById("submit");
 
-hide: function(){
-    var elem = document.getElementById("adminForm");
-    elem.style.display = "none";
-}
+        this.submission.addEventListener("click", function(){
+            var a = document.forms["form"]["name"].value;
+            var b = document.forms["form"]["url"].value;
+            var c = document.forms["form"]["count"].value;
+            
+            if (a.length > 0){
+                adminView.changeName(a);
+                console.log("name changed to " + a)
+            }
+            if (b.length > 0) {
+                adminView.changeUrl(b);
+            }
+            if (c.length > 0) {
+                adminView.changeClicks(c);
+            }
+        })
+    },
+    
+    // For viewing and hiding administrator priviliges
+    view: function(){
+        var elem = document.getElementById("hide");
+        elem.style.display = "block";
+    },
+    
+    hide: function(){
+        var elem = document.getElementById("hide");
+        elem.style.display = "none";
+    },
+    
+    changeName: function(name){
+        octopus.newName(name);
+    },
 
+    changeUrl: function(url){
+        octopus.newUrl(url);
+    },
+
+    changeClicks: function(number){
+        octopus.diffClicks(number);
+    }
 };
 
 octopus.init();
