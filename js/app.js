@@ -60,19 +60,19 @@ var octopus = {
         model.currentCat.clickCount++;
         catView.render();
     },
-
+    
     newName: function(name2){
         model.currentCat.name = name2;
         catView.render();
         catListView.render();
     },
-
+    
     newUrl: function(url2){
         model.currentCat.pic = url2;
         catView.render();
         catListView.render();
     },
-
+    
     diffClicks: function(num){
         model.currentCat.clickCount = num;
         catView.render();
@@ -144,7 +144,7 @@ var adminView = {
     
     init: function(){
         this.adminPrivileges = document.getElementById("adminBtn");
-
+        
         this.adminPrivileges.addEventListener("click", function(){
             var elem = document.getElementById("hide");
             if (elem.style.display == "none") {
@@ -153,9 +153,9 @@ var adminView = {
                 adminView.hide();
             }
         });
-
+        
         this.submission = document.getElementById("submit");
-
+        
         this.submission.addEventListener("click", function(){
             var a = document.forms["form"]["name"].value;
             var b = document.forms["form"]["url"].value;
@@ -188,11 +188,11 @@ var adminView = {
     changeName: function(name){
         octopus.newName(name);
     },
-
+    
     changeUrl: function(url){
         octopus.newUrl(url);
     },
-
+    
     changeClicks: function(number){
         octopus.diffClicks(number);
     }
